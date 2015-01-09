@@ -30,10 +30,7 @@ module Proxy::Discovery
     private
 
     def get_rest_client(url)
-      RestClient::Resource.new(
-          url,
-          :verify_ssl => OpenSSL::SSL::VERIFY_NONE
-      )
+      RestClient::Resource.new(url, :verify_ssl => OpenSSL::SSL::VERIFY_NONE)
     end
   end
 end
