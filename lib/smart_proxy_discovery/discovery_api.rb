@@ -1,19 +1,17 @@
 require 'sinatra'
-require 'rack/contrib'
 require 'smart_proxy_discovery/discovery'
 require 'smart_proxy_discovery/discovery_main'
 
 module Proxy::Discovery
 
   class Api < ::Sinatra::Base
-    use Rack::PostBodyContentTypeParser
     helpers ::Proxy::Helpers
     authorize_with_trusted_hosts
 
     post '/create' do
       content_type :json
       begin
-        Proxy::Discovery.create_discovered_host(params)
+        Proxy::Discovery.create_discovered_host(request)
       rescue => error
         error_responder(error)
       end

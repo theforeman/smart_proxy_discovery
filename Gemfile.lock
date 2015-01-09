@@ -12,7 +12,6 @@ PATH
   remote: .
   specs:
     smart_proxy_discovery (1.0.0)
-      rack-contrib
       rest-client
 
 GEM
@@ -34,8 +33,6 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.0)
-    rack-contrib (1.2.0)
-      rack (>= 0.9.1)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)

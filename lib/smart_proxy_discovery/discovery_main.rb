@@ -9,9 +9,10 @@ module Proxy::Discovery
     CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'
     REFRESH_HOST_PATH           = '/facts'
 
-    def create_discovered_host(params)
+    def create_discovered_host(request)
       foreman_request = Proxy::HttpRequest::ForemanRequest.new()
-      foreman_request.send_request(foreman_request.request_factory.create_post(CREATE_DISCOVERED_HOST_PATH, params.to_json))
+      req = foreman_request.request_factory.create_post(CREATE_DISCOVERED_HOST_PATH, request.body)
+      foreman_request.send_request(req)
     end
 
     def refresh_facts(ip)
