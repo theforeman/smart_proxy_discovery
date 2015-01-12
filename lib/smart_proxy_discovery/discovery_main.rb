@@ -11,8 +11,11 @@ module Proxy::Discovery
 
     def create_discovered_host(request)
       foreman_request = Proxy::HttpRequest::ForemanRequest.new()
-      req = foreman_request.request_factory.create_post(CREATE_DISCOVERED_HOST_PATH, request.body)
-      foreman_request.send_request(req)
+      req = foreman_request.request_factory.create_post(CREATE_DISCOVERED_HOST_PATH, request.body.read)
+      response = foreman_request.send_request(req)
+      unless response.is_a? Net::HTTPSuccess
+        raise response
+      end
     end
 
     def refresh_facts(ip)
