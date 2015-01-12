@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('mocha')
   s.add_development_dependency('webmock')
 
-  s.add_runtime_dependency('rest-client')
+  s.add_runtime_dependency('rest-client', ['> 1.6.2', '< 1.7'])
 end
