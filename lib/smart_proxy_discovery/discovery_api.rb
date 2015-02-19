@@ -6,7 +6,9 @@ module Proxy::Discovery
 
   class Api < ::Sinatra::Base
     helpers ::Proxy::Helpers
-    authorize_with_trusted_hosts
+    # workaround to allow discovered hosts to reach the proxy
+    # http://projects.theforeman.org/issues/9460
+    #authorize_with_trusted_hosts
 
     post '/create' do
       content_type :json
