@@ -6,8 +6,9 @@ module Proxy::Discovery
 
   class Api < ::Sinatra::Base
     helpers ::Proxy::Helpers
-    authorize_with_trusted_hosts
+    authorize_with_trusted_hosts(/\/[^\/]+\/(facts|reboot)/)
 
+    # DISCOVERED HOSTS -> PROXY -> FOREMAN actions (not authorized)
     post '/create' do
       content_type :json
       begin
@@ -17,6 +18,7 @@ module Proxy::Discovery
       end
     end
 
+    # FOREMAN -> PROXY -> DISCOVERED HOSTS actions (authorize_with_trusted_hosts)
     get '/:ip/facts' do
       content_type :json
       begin
