@@ -4,9 +4,29 @@ require 'smart_proxy_discovery/discovery_main'
 
 module Proxy::Discovery
 
-  class Api < ::Sinatra::Base
+  # This plugin has two separate Sinatra applications with different contexts
+  # (authorization helpers). Inbound communication is unauthorized,
+  class Dispatcher
+    def call(env)
+      if env['PATH_INFO'] == '/create'
+        InboundApi.new.call(env)
+      else
+        OutboundApi.new.call(env)
+      end
+    end
+  end
+
+  module ApiHelpers
+    def error_responder(error)
+      error_code = error.respond_to?(:http_code) ? error.http_code : 500
+      log_halt(error_code, "failed to update Foreman: #{error}")
+    end
+  end
+
+  # Inbound communication: Discovered Host -> Proxy Plugin -> Foreman
+  class InboundApi < ::Sinatra::Base
     helpers ::Proxy::Helpers
-    authorize_with_trusted_hosts
+    include ApiHelpers
 
     post '/create' do
       content_type :json
@@ -16,6 +36,14 @@ module Proxy::Discovery
         error_responder(error)
       end
     end
+
+  end
+
+  # Outbound communication: Foreman -> Proxy Plugin -> Discovered Host
+  class OutboundApi < ::Sinatra::Base
+    helpers ::Proxy::Helpers
+    include ApiHelpers
+    authorize_with_trusted_hosts
 
     get '/:ip/facts' do
       content_type :json
@@ -33,13 +61,6 @@ module Proxy::Discovery
       rescue => error
         error_responder(error)
       end
-    end
-
-    private
-
-    def error_responder(error)
-      error_code = error.respond_to?(:http_code) ? error.http_code : 500
-      log_halt(error_code, "failed to update Foreman: #{error}")
     end
   end
 end

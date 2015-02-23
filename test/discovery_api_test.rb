@@ -9,7 +9,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    ::Proxy::Discovery::Api.new
+    ::Proxy::Discovery::Dispatcher.new
   end
 
   def setup
@@ -34,6 +34,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:post, "#{@foreman_url}/api/v2/discovered_hosts/facts").to_return(:body => '{"status": "error", "message": "blah"}', :status => 500)
     post "/create", @facts
     assert_equal 500, last_response.status
+    assert_match(/^failed to update Foreman/, last_response.body)
   end
 
   def test_refresh_facts_success
@@ -47,6 +48,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:get, "http://#{@discovered_node}:8443/facts").to_return(:body => '{"status": "error", "message": "blah"}', :status => 500)
     get "/#{@discovered_node}/facts"
     assert_equal 500, last_response.status
+    assert_match(/^failed to update Foreman/, last_response.body)
   end
 
   def test_reboot_success
@@ -60,6 +62,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:put, "http://#{@discovered_node}:8443/bmc/#{@discovered_node}/chassis/power/cycle").to_return(:body => '{"status": "error", "message": "blah"}', :status => 500)
     put "/#{@discovered_node}/reboot"
     assert_equal 500, last_response.status
+    assert_match(/^failed to update Foreman/, last_response.body)
   end
 
 end
