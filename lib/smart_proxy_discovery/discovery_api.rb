@@ -19,7 +19,11 @@ module Proxy::Discovery
   module ApiHelpers
     def error_responder(error)
       error_code = error.respond_to?(:http_code) ? error.http_code : 500
-      log_halt(error_code, "failed to update Foreman: #{error}")
+      if error.respond_to?(:http_code) && error.respond_to?(:http_body)
+        log_halt(error_code, "Proxy error HTTP #{error.http_code} (#{error.message}): #{error.http_body})")
+      else
+        log_halt(error_code, error)
+      end
     end
   end
 
@@ -54,10 +58,28 @@ module Proxy::Discovery
       end
     end
 
-    put '/:ip/reboot' do
+    put '/:ip/power/reboot' do
       content_type :json
       begin
         Proxy::Discovery.reboot(params[:ip])
+      rescue => error
+        error_responder(error)
+      end
+    end
+
+    put '/:ip/power/kexec' do
+      content_type :json
+      begin
+        Proxy::Discovery.kexec(params[:ip], request.body.read)
+      rescue => error
+        error_responder(error)
+      end
+    end
+
+    put '/:ip/reboot' do
+      content_type :json
+      begin
+        Proxy::Discovery.reboot_legacy(params[:ip])
       rescue => error
         error_responder(error)
       end

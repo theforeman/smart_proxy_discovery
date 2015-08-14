@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
   s.license = 'GPLv3'
 
   s.add_development_dependency('rake')
+  # http://projects.theforeman.org/issues/9061
+  s.add_development_dependency('rack', '< 1.6')
   s.add_development_dependency('rack-test')
   s.add_development_dependency('mocha')
   s.add_development_dependency('webmock')
