@@ -49,10 +49,19 @@ module Proxy::Discovery
     include ApiHelpers
     authorize_with_trusted_hosts
 
+    get '/:ip/inventory/facter' do
+      content_type :json
+      begin
+        Proxy::Discovery.inventory_facter(params[:ip])
+      rescue => error
+        error_responder(error)
+      end
+    end
+
     get '/:ip/facts' do
       content_type :json
       begin
-        Proxy::Discovery.refresh_facts(params[:ip])
+        Proxy::Discovery.refresh_facts_legacy(params[:ip])
       rescue => error
         error_responder(error)
       end
