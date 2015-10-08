@@ -8,7 +8,6 @@ module Proxy::Discovery
 
   class << self
     CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'
-    REFRESH_HOST_PATH           = '/facts'
     SCHEME = Proxy::Discovery::Plugin.settings.node_scheme
     PORT = Proxy::Discovery::Plugin.settings.node_port
 
@@ -22,9 +21,14 @@ module Proxy::Discovery
       end
     end
 
-    def refresh_facts(ip)
+    def inventory_facter(ip)
       client = get_rest_client(generate_url(ip))
-      client[REFRESH_HOST_PATH].get
+      client["/inventory/facter"].get()
+    end
+
+    def refresh_facts_legacy(ip)
+      client = get_rest_client(generate_url(ip))
+      client['/facts'].get
     end
 
     def reboot_legacy(ip)
