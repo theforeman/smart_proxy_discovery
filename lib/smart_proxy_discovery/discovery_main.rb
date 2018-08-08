@@ -8,8 +8,6 @@ module Proxy::Discovery
 
   class << self
     CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'
-    SCHEME = Proxy::Discovery::Plugin.settings.node_scheme
-    PORT = Proxy::Discovery::Plugin.settings.node_port
 
     def create_discovered_host(request)
       foreman_request = Proxy::HttpRequest::ForemanRequest.new()
@@ -51,7 +49,9 @@ module Proxy::Discovery
     private
 
     def generate_url(ip)
-      "#{SCHEME}://#{ip}:#{PORT}"
+      scheme = Proxy::Discovery::Plugin.settings.node_scheme
+      port = Proxy::Discovery::Plugin.settings.node_port
+      "#{scheme}://#{ip}:#{port}"
     end
 
     def get_rest_client(url)
