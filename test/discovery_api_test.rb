@@ -52,7 +52,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:get, "#{@discovered_node_url}/facts").to_return(:body => 'bad', :status => 500)
     get "/#{@discovered_node_ip}/facts"
     assert_equal 500, last_response.status
-    assert_match /Proxy error .* bad/, last_response.body
+    assert_match(/Proxy error .* bad/, last_response.body)
   end
 
   def test_reboot_legacy_success
@@ -66,7 +66,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:put, "#{@discovered_node_url_legacy}/bmc/#{@discovered_node_ip}/chassis/power/cycle").to_return(:body => 'bad', :status => 500)
     put "/#{@discovered_node_ip}/reboot"
     assert_equal 500, last_response.status
-    assert_match /Proxy error .* bad/, last_response.body
+    assert_match(/Proxy error .* bad/, last_response.body)
   end
 
   def test_reboot_success
@@ -80,7 +80,7 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:put, "#{@discovered_node_url}/power/reboot").to_return(:body => 'bad', :status => 500)
     put "/#{@discovered_node_ip}/power/reboot"
     assert_equal 500, last_response.status
-    assert_match /Proxy error .* bad/, last_response.body
+    assert_match(/Proxy error .* bad/, last_response.body)
   end
 
   def test_kexec_success
@@ -94,6 +94,6 @@ class DiscoveryApiTest < Test::Unit::TestCase
     stub_request(:put, "#{@discovered_node_url}/power/kexec").to_return(:body => 'bad', :status => 500)
     put "/#{@discovered_node_ip}/power/kexec"
     assert_equal 500, last_response.status
-    assert_match /Proxy error .* bad/, last_response.body
+    assert_match(/Proxy error .* bad/, last_response.body)
   end
 end
