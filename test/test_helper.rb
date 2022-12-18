@@ -2,8 +2,6 @@ require 'rack/test'
 require 'test/unit'
 require 'webmock/test_unit'
 require 'mocha/test_unit'
-require 'json'
-require 'ostruct'
 
 require 'smart_proxy_for_testing'
 
