@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/theforeman/smart_proxy_discovery'
   s.license = 'GPLv3'
 
+  s.required_ruby_version = '>= 2.5', '< 4'
+
   s.add_development_dependency('test-unit')
   s.add_development_dependency('rake')
   s.add_development_dependency('rack')
