@@ -10,7 +10,7 @@ module Proxy::Discovery
     CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'
 
     def create_discovered_host(request)
-      foreman_request = Proxy::HttpRequest::ForemanRequest.new()
+      foreman_request = Proxy::HttpRequest::ForemanRequest.new
       req = foreman_request.request_factory.create_post(CREATE_DISCOVERED_HOST_PATH, request.body.read)
       response = foreman_request.send_request(req)
       unless response.is_a? Net::HTTPSuccess
@@ -21,7 +21,7 @@ module Proxy::Discovery
 
     def inventory_facter(ip)
       client = get_rest_client(generate_url(ip))
-      client["/inventory/facter"].get()
+      client["/inventory/facter"].get
     end
 
     def refresh_facts_legacy(ip)
