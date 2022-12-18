@@ -35,8 +35,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.create_discovered_host(request)
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
   end
@@ -51,8 +51,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.inventory_facter(params[:ip])
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
 
@@ -60,8 +60,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.refresh_facts_legacy(params[:ip])
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
 
@@ -69,8 +69,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.reboot(params[:ip])
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
 
@@ -78,8 +78,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.kexec(params[:ip], request.body.read)
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
 
@@ -87,8 +87,8 @@ module Proxy::Discovery
       content_type :json
       begin
         Proxy::Discovery.reboot_legacy(params[:ip])
-      rescue => error
-        error_responder(error)
+      rescue StandardError => e
+        error_responder(e)
       end
     end
   end
