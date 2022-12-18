@@ -15,12 +15,5 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.5', '< 4'
 
-  s.add_development_dependency('test-unit')
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rack')
-  s.add_development_dependency('rack-test')
-  s.add_development_dependency('mocha')
-  s.add_development_dependency('webmock')
-
   s.add_runtime_dependency('rest-client')
 end
