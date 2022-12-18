@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rest-client'
 require 'proxy/request'
 require 'json'
@@ -7,7 +9,7 @@ module Proxy::Discovery
   extend ::Proxy::Log
 
   class << self
-    CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'.freeze
+    CREATE_DISCOVERED_HOST_PATH = '/api/v2/discovered_hosts/facts'
 
     def create_discovered_host(request)
       foreman_request = Proxy::HttpRequest::ForemanRequest.new

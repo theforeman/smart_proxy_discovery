@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'smart_proxy_discovery/discovery'
 require 'smart_proxy_discovery/discovery_main'

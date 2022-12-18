@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('lib/smart_proxy_discovery/version', __dir__)
 
 Gem::Specification.new do |s|
