@@ -1,7 +1,7 @@
 require 'rack/test'
 require 'test/unit'
 require 'webmock/test_unit'
-require 'mocha/setup'
+require 'mocha/test_unit'
 require 'json'
 require 'ostruct'
 
