@@ -5,7 +5,10 @@ Gem::Specification.new do |s|
   s.version = Proxy::Discovery::VERSION
 
   s.summary = "Discovery plugin for Foreman's smart proxy"
-  s.description = 'This smart proxy plugin, together with a Foreman plugin, add the capability to discover unknown bare-metal. This plugin provides proxy API for nodes to communicate with Foreman instance and vice versa.'
+  s.description = <<~DESC
+    This smart proxy plugin, together with a Foreman plugin, add the capability to discover unknown bare-metal.
+    This plugin provides proxy API for nodes to communicate with Foreman instance and vice versa.
+  DESC
   s.authors = ['Shlomi Zadok']
   s.email = 'szadok@redhat.com'
   s.extra_rdoc_files = ['README.md', 'LICENSE']
