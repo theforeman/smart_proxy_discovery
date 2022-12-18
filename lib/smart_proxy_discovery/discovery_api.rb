@@ -3,7 +3,6 @@ require 'smart_proxy_discovery/discovery'
 require 'smart_proxy_discovery/discovery_main'
 
 module Proxy::Discovery
-
   # This plugin has two separate Sinatra applications with different contexts
   # (authorization helpers). Inbound communication is unauthorized,
   class Dispatcher
