@@ -3,6 +3,12 @@
 source 'https://rubygems.org'
 gemspec
 
+group :rubocop do
+  gem 'rubocop', '~> 1.28.0'
+  gem 'rubocop-performance'
+  gem 'rubocop-rake'
+end
+
 group :development do
   gem 'pry'
 end
