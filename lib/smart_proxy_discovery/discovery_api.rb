@@ -40,7 +40,6 @@ module Proxy::Discovery
         error_responder(error)
       end
     end
-
   end
 
   # Outbound communication: Foreman -> Proxy Plugin -> Discovered Host
